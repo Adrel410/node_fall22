@@ -15,6 +15,13 @@ db.on('error', console.error.bind(console, "MongoDB connention error: "))
 
 
 app.get('/', function(req, res){
+    Todo.find(function(err, todo){
+        if(err){
+            res.json({"Error: ": err})
+        }else {
+            res.render('todo.ejs',{todoList: todo});
+        }
+    })
     res.render('todo.ejs');
 })
 

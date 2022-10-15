@@ -21,17 +21,19 @@
                 </button>
             </form>
             <ul class="todo-list" >
-                <li class="todo-list-item">
-                    <div class="todo-list-item-name">
-                        First task
-                    </div>
-                    <a href="" class="exit" >
-                        <i class="fa fa-times"></i>
-                    </a>
-                    <a href="" class="remove">
-                        <i class="fa fa-pencil"></i>
-                    </a>
-                </li>
+                <% todoList.forEach(function(todo){ %>
+                    <li class="todo-list-item">
+                        <div class="todo-list-item-name">
+                            <%= todo.todo %>>
+                        </div>
+                        <button class="exit" onclick="">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <button class="remove" onclick="">
+                            <i class="fa fa-pencil"></i>
+                        </button>
+                    </li>
+                <% }); %>
             </ul>
         </div>
     </div>
