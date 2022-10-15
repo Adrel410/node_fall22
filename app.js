@@ -1,9 +1,13 @@
 var express = require('express');
 var mongose = require('mongoose')
 var app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use('/static', express.static("public"));
-app.use(express.urlencoded({ extended: true }))
+//app.use(express.urlencoded({ extended: true }))
 app.set("view engine", "ejs");
 
 const Todo = require('./models/todo.model');
@@ -42,26 +46,26 @@ app.post('/', (req, res) => {
 //Modifies item in DB
 app.put('/', (req, res) =>{
     let id = req.body.id;
-    let err = {}
+    let err = null
     console.log(req.body)
-    if(typeof id === "string"){
-        Todo.updateOne({_id: id}, {done: true}, function(error){
-            if(error){
-                console.log(error)
-                err = error
-            }
-        })
+    // if(typeof id === "string"){
+    //     Todo.updateOne({_id: id}, {done: true}, function(error){
+    //         if(error){
+    //             console.log(error)
+    //             err = error
+    //         }
+    //     })
 
-    }else if (typeof id === "object"){
-        id.forEach(ID => {
-            Todo.updateOne({_id: id}, {done: true}, function(error){
-                if(error){
-                    console.log(error)
-                    err = error
-                }
-            })
-        })
-    }
+    // }else if (typeof id === "object"){
+    //     id.forEach(ID => {
+    //         Todo.updateOne({_id: id}, {done: true}, function(error){
+    //             if(error){
+    //                 console.log(error)
+    //                 err = error
+    //             }
+    //         })
+    //     })
+    // }
     if(err){
             res.json({"Error: ": err})
         } else {

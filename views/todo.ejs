@@ -13,11 +13,10 @@
             console.log(_id)
             fetch('/', {
                 method: 'PUT',
-                body: {id: _id}
-            })
-            .then((response) =response.json())
-            .then((result) => {
-                console.log('Success:', result);
+                body: JSON.stringify({ id: `${_id}`}),
+                headers: {
+                    "Content-Type": "application/json",
+                }
             })
             .catch((error) => {
                 console.error('Error',error);
