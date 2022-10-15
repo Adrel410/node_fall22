@@ -7,6 +7,27 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <link href="https://use.fontsawesome.com/release/v5.8.2/css/all.css" rel="stylesheet" /> -->
+    <script>
+        function done(todoTag){
+            const _id = todoTag.getAttribite("data-todoId");
+            console.log(_id)
+            fetch('/', {
+                method: 'PUT',
+                body: {id: _id}
+            })
+            .then((response) =response.json())
+            .then((result) => {
+                console.log('Success:', result);
+            })
+            .catch((error) => {
+                console.error('Error',error);
+            });
+        }
+        function deleteItem(todoTag){
+            const id = todoTag.getAttribite("data-todoId");
+            console.log(id)
+        }
+    </script>
 </head>
 <body>
     <div class="todo-container">
@@ -24,16 +45,16 @@
                 <% todoList.forEach(function(todo){ %>
                     <li class="todo-list-item">
                         <div class="todo-list-item-name">
-                            <%= todo.todo %>>
+                            <%= todo.todo %>
                         </div>
-                        <button class="exit" onclick="">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                        <button class="remove" onclick="">
+                        <button data-todoId="<%= todo._id %>" class="remove" onclick="done(this)">
                             <i class="fa fa-pencil"></i>
                         </button>
+                        <button data-todoId="<%= todo._id %>" class="edit" onclick="deleteItem(this)">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </li>
-                <% }); %>
+                <% }) %>
             </ul>
         </div>
     </div>
