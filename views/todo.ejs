@@ -5,6 +5,7 @@
     </title>
     <link rel="stylesheet" href="/static/stylesheets/styles.css" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <link href="https://use.fontsawesome.com/release/v5.8.2/css/all.css" rel="stylesheet" /> -->
 </head>
 <body>
@@ -12,29 +13,26 @@
         <h2>
             To-Do Items
         </h2>
-    </div>
-    <div class="todo">
-        <form action="/" method="POST" class="todo-header">
-            <input type="text" name="content" />
-            <button type="submit">
-                Submit
-                <!-- <i class="fa-solid fa-plus" /> -->
-            </button>
-        </form>
-        <ul class="todo-list" >
-            <li class="todo-list-item">
-                <div class="todo-list-item-name">
-                    First task
-                </div>
-                <a href="" class="exit" >
-                    Edit
-                    <!-- <i class="fa-solid fa-pen-to-square" /> -->
-                </a>
-                <a href="" class="remove">
-                    Remove
-                    <!-- <i class="fa-regular fa-circle-xmark" /> -->
-                </a>
-            </li>
-        </ul>
+        <div class="todo">
+            <form action="/" method="POST" class="todo-header">
+                <input type="text" name="content" />
+                <button type="submit">
+                    <i class="fa fa-plus"></i> 
+                </button>
+            </form>
+            <ul class="todo-list" >
+                <li class="todo-list-item">
+                    <div class="todo-list-item-name">
+                        First task
+                    </div>
+                    <a href="" class="exit" >
+                        <i class="fa fa-times"></i>
+                    </a>
+                    <a href="" class="remove">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 </body>
