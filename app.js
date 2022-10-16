@@ -1,6 +1,6 @@
 var express = require('express');
 var mongose = require('mongoose')
-var axios = require('axios').default;
+var axios = require('axios');
 var app = express();
 const bodyParser = require('body-parser');
 
