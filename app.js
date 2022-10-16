@@ -83,7 +83,7 @@ app.delete('/delete/:id', (req, res) => {
             }
         })
 
-    }else if (typeof id === "object"){
+    }else if (typeof id === "object") {
         id.forEach( ID => {
             Todo.deleteOne({_id: ID}, function(error){
                 if(error){
