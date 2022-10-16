@@ -1,5 +1,6 @@
 var express = require('express');
 var mongose = require('mongoose')
+var axios = require('axios').default;
 var app = express();
 const bodyParser = require('body-parser');
 
@@ -7,9 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use('/static', express.static("public"));
-//app.use(express.urlencoded({ extended: true }))
 app.set("view engine", "ejs");
-
 const Todo = require('./models/todo.model');
 const mongoDB = 'mongodb+srv://Ogundipe_Adeola:mR05jKHbYcjQ1EuV@cluster0.t2dvzao.mongodb.net/?retryWrites=true&w=majority'
 mongose.connect(mongoDB);
@@ -19,14 +18,17 @@ db.on('error', console.error.bind(console, "MongoDB connention error: "))
 
 
 app.get('/', function(req, res){
-    Todo.find(function(err, todo){
-        console.log(todo)
-        if(err){
-            res.json({"Error: ": err})
-        }else {
-            res.render('todo.ejs',{todoList: todo});
-        }
-    })
+    axios.get('https://xkcd.com/info.0.json').then(function(response){
+        Todo.find(function(err, todo){
+            if(err){
+                res.json({"Error: ": err})
+            }else {
+                res.render('todo.ejs',{todoList: todo, comicData: response.data});
+            }
+        })  
+    }).catch(function(error){
+        res.json({"Error: ": error})
+    })     
 })
 // Creates item in DB
 app.post('/create', (req, res) => {
