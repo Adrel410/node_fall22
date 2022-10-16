@@ -29,7 +29,7 @@ app.get('/', function(req, res){
     })
 })
 // Creates item in DB
-app.post('/', (req, res) => {
+app.post('/create', (req, res) => {
     let newTodo = new Todo({
         todo: req.body.content,
         done: false
@@ -39,33 +39,31 @@ app.post('/', (req, res) => {
             res.json({"Error: ": err})
         } else {
             res.redirect('/');
-            //res.json({"Status: ": "Successful", "ObjectId": todo.id})
         }
     })
 })
 //Modifies item in DB
-app.put('/', (req, res) =>{
+app.put('/done', (req, res) =>{
     let id = req.body.id;
     let err = null
-    console.log(req.body)
-    // if(typeof id === "string"){
-    //     Todo.updateOne({_id: id}, {done: true}, function(error){
-    //         if(error){
-    //             console.log(error)
-    //             err = error
-    //         }
-    //     })
+    if(typeof id === "string"){
+        Todo.updateOne({_id: id}, {done: true}, function(error){
+            if(error){
+                console.log(error)
+                err = error
+            }
+        })
 
-    // }else if (typeof id === "object"){
-    //     id.forEach(ID => {
-    //         Todo.updateOne({_id: id}, {done: true}, function(error){
-    //             if(error){
-    //                 console.log(error)
-    //                 err = error
-    //             }
-    //         })
-    //     })
-    // }
+    }else if (typeof id === "object"){
+        id.forEach(ID => {
+            Todo.updateOne({_id: id}, {done: true}, function(error){
+                if(error){
+                    console.log(error)
+                    err = error
+                }
+            })
+        })
+    }
     if(err){
             res.json({"Error: ": err})
         } else {
@@ -73,9 +71,9 @@ app.put('/', (req, res) =>{
         }
 })
 
-app.delete('/', (req, res) =>{
-    let id = req.body.check;
-    let err = {}
+app.delete('/delete/:id', (req, res) => {
+    let id = req.params.id;
+    let err;
     if(typeof id === "string"){
         Todo.deleteOne({_id: id}, function(error){
             if(error){
@@ -84,7 +82,7 @@ app.delete('/', (req, res) =>{
         })
 
     }else if (typeof id === "object"){
-        id.forEach(ID => {
+        id.forEach( ID => {
             Todo.deleteOne({_id: ID}, function(error){
                 if(error){
                     err = error
